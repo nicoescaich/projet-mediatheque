@@ -1,0 +1,89 @@
+// on importe les fichiers SASS de boostrap
+@import '~bootstrap/scss/bootstrap';
+
+.main-bg {
+    background-color: #595959;
+  }
+  
+  
+  /* Genrale rules */
+  
+  .sec-bg a {
+    color: white;
+  }
+  
+  .nav a {
+    font-weight: bold;
+  }
+  
+  /* Tablets */
+//   @media only screen and (min-width: 768px) {
+//     .form-container {
+//       width: 75%;
+//     }
+
+//   }
+//   @media only screen and (max-width: 992px) {
+
+//   .navbar-brand {
+//     display: none;
+//   }
+// } 
+  /* Large devices */
+  @media only screen and (min-width: 992px) {
+    .form-container {
+      width: 50%;
+    }
+  }
+  .legend {
+      .loan{
+          font-size: 12px;
+          &::before {
+              content:"";
+              display: inline-block;
+              height: 8px;
+                width: 40px;
+                background-color: #842029;
+          }
+      }
+      .purchase{
+        font-size: 12px;
+          &::before {
+              content:"";
+              display: inline-block;
+              height: 8px;
+                width: 40px;
+                background-color: #141619;
+          }
+
+    }
+    .on-stock{
+        font-size: 12px;
+          &::before {
+              content:"";
+              display: inline-block;
+              height: 8px;
+                width: 40px;
+                border: 1px solid black;
+          }
+  }
+     .on-stock{
+        font-size: 12px;
+          &::before {
+              content:"";
+              display: inline-block;
+              height: 8px;
+                width: 40px;
+                border: 1px solid black;
+          }
+  }
+}
+.landing-page h2{
+    text-align: center;
+}
+.landing-text{
+      text-align: center;
+}
+.navbar-toggler {
+  float:right;
+}

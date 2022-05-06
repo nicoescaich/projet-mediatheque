@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mediatheque Home{% endblock %}
+
+{% block body %}
+
+{% if app.user %}
+<div class="text-center">
+          <h1 class="h3 mb-3 font-weight-normal">Liste des Produits</h1>
+    </div>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id Produit</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Description</th>
+      <th scope="col">Date De Retour</th>
+    </tr>
+  </thead>
+  <tbody>
+   <div class = "legend">
+        <span class = "loan">Loué</span>
+        {# <span class = "purchase">Acheté</span> #}
+        <span class = "on-stock">En Stock</span>
+    </div>
+  {% for product in products %}
+  {% if product.status == 'loan' %}
+    <tr class="alert alert-danger" role="alert">
+        <td>{{product.id}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.price}} €</td>
+      <td><a href='{{path('description',{id:product.id})}}'><i class="fa-solid fa-square-plus"></i></a></td>
+      <td>{{product.end_date}}</td>
+    </tr>
+    {% else %}
+     <tr>
+        <td>{{product.id}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.price}} €</td>
+      <td><a href='{{path('description',{id:product.id})}}'><i class="fa-solid fa-square-plus"></i></a></td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class = "landing-page">
+  <h2>MEDIA-Nicolas, la culture en un click !</h2>
+  <p class = "landing-text">Pour avoir accès au contenu de la médiathèque, veuillez vous connecter ou créer un compte.</p>
+</div>
+
+{% endif %}
+{% endblock %}
