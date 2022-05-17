@@ -26,13 +26,13 @@ class FakeData extends Fixture
         $faker = Factory::create('fr_FR');
 
         for ($i = 1; $i < 10; $i++) {
-            $bd = new Product();
-            $bd->setName($faker->name());
-            $bd->setPrice($faker->numberBetween(1,500));
-            $bd->setDescription($faker->realText(50));
-            $bd->setStatus('on-stock');
+            $product = new Product();
+            $product->setName($faker->name());
+            $product->setPrice($faker->numberBetween(1,500));
+            $product->setDescription($faker->realText(50));
+            $product->setStatus('on-stock');
 
-        $manager->persist($bd);
+        $manager->persist($product);
         }
         for ($i = 1; $i < 5; $i++) {
             $user = new User();
@@ -56,13 +56,6 @@ class FakeData extends Fixture
 
     $manager->persist($reader);
             }
-    //         if(!$user->getAdministrator()) {
-    //             $loan = new Loan;
-    //             $loan->setStartDate(new \Datetime());
-    //             $loan->setEndDate(new \Datetime('+3 weeks'));
-
-    // $manager->persist($reader);
-    //         }
         }
     $manager->flush();
     }

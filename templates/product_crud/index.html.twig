@@ -6,6 +6,9 @@
     <div class="text-center">
           <h1 class="h3 mb-3 font-weight-normal">Liste des Produits</h1>
     </div>
+      <div class="text-center">
+    <a class = 'btn btn-success' href="{{ path('app_product_crud_new') }}">Créer Nouveau Produit</a>
+    </div>
 
     <div class = "legend">
         <span class = "loan">Loué</span>
@@ -72,8 +75,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a class = 'btn btn-success' href="{{ path('app_product_crud_new') }}">Créer Nouveau Produit</a>
     {# <a class = 'btn btn-success' href="{{ path('app_loans') }}">Show Loan List</a> #}
     {# <a class = 'btn btn-success' href="{{ path('app_product_crud_index') }}">Show Products List</a> #}
 

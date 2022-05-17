@@ -3,13 +3,44 @@
 {% block title %}Mediatheque Home{% endblock %}
 
 {% block body %}
-<div class="text-center">
+<section class="wrapper">
+  <div class="text-center">
+    <h1 class="mb-3 font-weight-normal">Fiche Produit : {{product.name}}</h1>
+  </div>
 
-   <div class="text-center">
-          <h1 class="h3 mb-3 font-weight-normal">Fiche Produit : {{product.name}}</h1>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6 col-xs-12 col-sm-12 text-center">
+      <div class="card text-white card-has-bg click-col" style="background-image:url('https://source.unsplash.com/600x900/?tech,street');">
+         <img class="card-img d-none" src="https://source.unsplash.com/600x900/?tech,street" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+          <div class="card-img-overlay d-flex flex-column">
+            <div class="card-body">
+              <h2 class="card-meta mb-2">{{product.name}}</h2>
+              <h4 class="card-title mt-0 "><a class="text-white" herf="#">{{product.description}}</a></h4>
+            </div>
+              <h4><i class="far fa-money-bill-alt"></i> {{product.price}} €</h4>
+          <div class="card-footer">
+             {% if product.status == 'on-stock' %}
+             <div class = "text-center">
+                <a class = 'btn btn-success float-left' href="{{path('buy', {'id': product.id})}}" class="card-link">Acheter</a>
+                <a class = 'btn btn-success float-right' href="{{path('loan', {'id': product.id})}}" class="card-link">Louer</a>
+              </div>
+        {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+ </div> 
+</section>
 
-  <section class="d-flex justify-content-center">
+
+{# <div class="text-center">
+   <div class="text-center">
+      <h1 class="h3 mb-3 font-weight-normal">Fiche Produit : {{product.name}}</h1>
+    </div>
+<section class="d-flex justify-content-center">
     <div class="card" style="width: 18rem;">
       <img src="https://media.lesechos.com/api/v1/images/view/6205aa2ed286c242562f9f36/1280x720-webp/070887772598-web-tete.webp" class="card-img-top" alt="...">
       <div class="card-body">
@@ -23,12 +54,12 @@
       </ul>
       <div class="card-body">
         {% if product.status == 'on-stock' %}
-          <a class = 'btn btn-success' href="{{path('buy', {'id': product.id})}}" class="card-link">Buy</a>
-          <a class = 'btn btn-success' href="{{path('loan', {'id': product.id})}}" class="card-link">Loan</a>
+          <a class = 'btn btn-success' href="{{path('buy', {'id': product.id})}}" class="card-link">Acheter</a>
+          <a class = 'btn btn-success' href="{{path('loan', {'id': product.id})}}" class="card-link">Louer</a>
         {% endif %}
       </div>
     </div>
   </section>
-</div>
+</div> #}
 
 {% endblock %}
