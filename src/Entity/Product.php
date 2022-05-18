@@ -36,10 +36,6 @@ class Product
      */
     private $purchase;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Recommandation::class, mappedBy="product")
-     */
-    private $recommandations;
 
      /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -70,11 +66,6 @@ class Product
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
      */
     private $category;
-
-    public function __construct()
-    {
-        $this->recommandations = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -133,36 +124,6 @@ class Product
         }
 
         $this->purchase = $purchase;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Recommandation>
-     */
-    public function getRecommandations(): Collection
-    {
-        return $this->recommandations;
-    }
-
-    public function addRecommandation(Recommandation $recommandation): self
-    {
-        if (!$this->recommandations->contains($recommandation)) {
-            $this->recommandations[] = $recommandation;
-            $recommandation->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRecommandation(Recommandation $recommandation): self
-    {
-        if ($this->recommandations->removeElement($recommandation)) {
-            // set the owning side to null (unless already changed)
-            if ($recommandation->getProduct() === $this) {
-                $recommandation->setProduct(null);
-            }
-        }
 
         return $this;
     }

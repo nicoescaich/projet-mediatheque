@@ -28,19 +28,15 @@ class Purchase
     private $total;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Reader::class, inversedBy="purchases")
-     */
-    private $reader;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Employee::class, inversedBy="purchases")
-     */
-    private $employee;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Product::class, inversedBy="purchase", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Product::class, inversedBy="purchase", cascade={"persist"})
      */
     private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="purchases")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -71,30 +67,6 @@ class Purchase
         return $this;
     }
 
-    public function getReader(): ?Reader
-    {
-        return $this->reader;
-    }
-
-    public function setReader(?Reader $reader): self
-    {
-        $this->reader = $reader;
-
-        return $this;
-    }
-
-    public function getEmployee(): ?Employee
-    {
-        return $this->employee;
-    }
-
-    public function setEmployee(?Employee $employee): self
-    {
-        $this->employee = $employee;
-
-        return $this;
-    }
-
     public function getProduct(): ?Product
     {
         return $this->product;
@@ -110,5 +82,17 @@ class Purchase
     public function __toString():string
     {
         return (string)$this->getId();
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

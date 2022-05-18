@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -53,14 +55,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $administrator;
 
     /**
-     * @ORM\OneToOne(targetEntity=Reader::class, mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="user")
      */
-    private $reader;
+    private $loans;
 
     /**
-     * @ORM\OneToOne(targetEntity=Employee::class, mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Purchase::class, mappedBy="user")
      */
-    private $employee;
+    private $purchases;
+
+    public function __construct()
+    {
+        $this->loans = new ArrayCollection();
+        $this->purchases = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -111,45 +119,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdministrator(bool $administrator): self
     {
         $this->administrator = $administrator;
-
-        return $this;
-    }
-
-    public function getReader(): ?Reader
-    {
-        return $this->reader;
-    }
-
-    public function setReader(?Reader $reader): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($reader === null && $this->reader !== null) {
-            $this->reader->setUser(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($reader !== null && $reader->getUser() !== $this) {
-            $reader->setUser($this);
-        }
-
-        $this->reader = $reader;
-
-        return $this;
-    }
-
-    public function getEmployee(): ?Employee
-    {
-        return $this->employee;
-    }
-
-    public function setEmployee(Employee $employee): self
-    {
-        // set the owning side of the relation if necessary
-        if ($employee->getUser() !== $this) {
-            $employee->setUser($this);
-        }
-
-        $this->employee = $employee;
 
         return $this;
     }
@@ -224,5 +193,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Loan>
+     */
+    public function getLoans(): Collection
+    {
+        return $this->loans;
+    }
+
+    public function addLoan(Loan $loan): self
+    {
+        if (!$this->loans->contains($loan)) {
+            $this->loans[] = $loan;
+            $loan->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLoan(Loan $loan): self
+    {
+        if ($this->loans->removeElement($loan)) {
+            // set the owning side to null (unless already changed)
+            if ($loan->getUser() === $this) {
+                $loan->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Purchase>
+     */
+    public function getPurchases(): Collection
+    {
+        return $this->purchases;
+    }
+
+    public function addPurchase(Purchase $purchase): self
+    {
+        if (!$this->purchases->contains($purchase)) {
+            $this->purchases[] = $purchase;
+            $purchase->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchase(Purchase $purchase): self
+    {
+        if ($this->purchases->removeElement($purchase)) {
+            // set the owning side to null (unless already changed)
+            if ($purchase->getUser() === $this) {
+                $purchase->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

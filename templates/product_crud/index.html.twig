@@ -1,82 +1,90 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}Product index
+{% endblock %}
 
 {% block body %}
-    <div class="text-center">
-          <h1 class="h3 mb-3 font-weight-normal">Liste des Produits</h1>
-    </div>
-      <div class="text-center">
-    <a class = 'btn btn-success' href="{{ path('app_product_crud_new') }}">Créer Nouveau Produit</a>
-    </div>
+	<div class="text-center">
+		<h1 class="h3 mb-3 font-weight-normal">Liste des Produits</h1>
+	</div>
+	<div class="text-center">
+		<a class='btn btn-success' href="{{ path('app_product_crud_new') }}">Créer Nouveau Produit</a>
+	</div>
 
-    <div class = "legend">
-        <span class = "loan">Loué</span>
-        <span class = "purchase">Acheté</span>
-        <span class = "on-stock">En Stock</span>
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Price</th>
-                <th>Description</th>
-                {# <th>Author</th>
-                <th>Support</th> #}
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-          {% if product.status == 'loan' %}
-            <tr class="alert alert-danger" role="alert">
-                <td>{{ product.id}}</td>
-                <td>{{ product.name}}</td>
-                <td>{{ product.price}} €</td>
-                <td>{{ product.description }}</td>
-                <td>
-                    {# <a href="{{ path('app_product_crud_show', {'id': product.id}) }}"><i class="fa-solid fa-eye"></i></a> #}
-                    <a href="{{ path('app_product_crud_edit', {'id': product.id}) }}"><i class="fa-solid fa-pen"></i></a>
-                    <a href="{{ path('app_product_crud_delete', {'id': product.id}) }}"><i class="fa-solid fa-trash"></i></a>
-                </td>
-            </tr>
-        {% elseif product.status == 'buy' %}
-                <tr class="alert alert-dark" role="alert">
-                <td>{{ product.id }}</td>
-                <td>{{ product.name}}</td>
-                <td>{{ product.price}} €</td>
-                <td>{{ product.description }}</td>
-                <td>
-                    {# <a href="{{ path('app_product_crud_show', {'id': product.id}) }}"><i class="fa-solid fa-eye"></i></a> #}
-                    <a href="{{ path('app_product_crud_edit', {'id': product.id}) }}"><i class="fa-solid fa-pen"></i></a>
-                    <a href="{{ path('app_product_crud_delete', {'id': product.id}) }}"><i class="fa-solid fa-trash"></i></a>
+	<div class="legend">
+		<span class="loan">Loué</span>
+		<span class="purchase">Acheté</span>
+		<span class="on-stock">En Stock</span>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Price</th>
+				<th>Description</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for product in products %}
+				{% if product.status == 'loan' %}
+					<tr class="alert alert-danger" role="alert">
+						<td>{{ product.id}}</td>
+						<td>{{ product.name}}</td>
+						<td>{{ product.price}}
+							€</td>
+						<td>{{ product.description }}</td>
+						<td>
+							<a href="{{ path('app_product_crud_edit', {'id': product.id}) }}">
+								<i class="fa-solid fa-pen"></i>
+							</a>
+							<a href="{{ path('app_product_crud_delete', {'id': product.id}) }}">
+								<i class="fa-solid fa-trash"></i>
+							</a>
+						</td>
+					</tr>
+				{% elseif product.status == 'buy' %}
+					<tr class="alert alert-dark" role="alert">
+						<td>{{ product.id }}</td>
+						<td>{{ product.name}}</td>
+						<td>{{ product.price}}
+							€</td>
+						<td>{{ product.description }}</td>
+						<td>
+							<a href="{{ path('app_product_crud_edit', {'id': product.id}) }}">
+								<i class="fa-solid fa-pen"></i>
+							</a>
+							<a href="{{ path('app_product_crud_delete', {'id': product.id}) }}">
+								<i class="fa-solid fa-trash"></i>
+							</a>
 
-                </td>
-            </tr>
-            {% else %}
-             <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name}}</td>
-                <td>{{ product.price }} €</td>
-                <td>{{ product.description }}</td>
-                <td>
-                    {# <a href="{{ path('app_product_crud_show', {'id': product.id}) }}"><i class="fa-solid fa-eye"></i></a> #}
-                    <a href="{{ path('app_product_crud_edit', {'id': product.id}) }}"><i class="fa-solid fa-pen"></i></a>
-                    <a href="{{ path('app_product_crud_delete', {'id': product.id}) }}"><i class="fa-solid fa-trash"></i></a>
-
-                </td>
-            </tr>
-            {% endif %}
-        {% else %}
-            <tr>
-                <td colspan="6">Aucun produit trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {# <a class = 'btn btn-success' href="{{ path('app_loans') }}">Show Loan List</a> #}
-    {# <a class = 'btn btn-success' href="{{ path('app_product_crud_index') }}">Show Products List</a> #}
-
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td>{{ product.id }}</td>
+						<td>{{ product.name}}</td>
+						<td>{{ product.price }}
+							€</td>
+						<td>{{ product.description }}</td>
+						<td>
+							<a href="{{ path('app_product_crud_edit', {'id': product.id}) }}">
+								<i class="fa-solid fa-pen"></i>
+							</a>
+							<a href="{{ path('app_product_crud_delete', {'id': product.id}) }}">
+								<i class="fa-solid fa-trash"></i>
+							</a>
+						</td>
+					</tr>
+				{% endif %}
+			{% else %}
+				<tr>
+					<td colspan="6">Aucun produit trouvé</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
 {% endblock %}
+

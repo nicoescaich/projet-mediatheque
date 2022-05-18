@@ -1,5 +1,6 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-        <input type="hidden" name="_token" value="{{ csrf_token('edit' ~ product.id) }}">
-        <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+{{ form_widget(form) }}
+    <input type="hidden" name="_token" value="{{ csrf_token('edit' ~ product.id) }}">
+    <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
+

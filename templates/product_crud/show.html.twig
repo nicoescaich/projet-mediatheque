@@ -1,40 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %}Product
+{% endblock %}
 
 {% block body %}
-    <div class="text-center">
-          <h1 class="h3 mb-3 font-weight-normal">Supprimer Produit {{product.name}}</h1>
-    </div>
+	<div class="text-center">
+		<h1 class="h3 mb-3 font-weight-normal">Supprimer Produit
+			{{product.name}}</h1>
+	</div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ product.price }} €</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>Auteur</th>
-                <td>{{ product.author }}</td>
-            </tr>
-            <tr>
-                <th>Support</th>
-                <td>{{ product.support }}</td>
-            </tr>
-        </tbody>
-    </table>
-     {{ include('product_crud/_delete_form.html.twig') }}
-    <a class="btn btn-success" class = "btn btn-success" href="{{ path('app_product_crud_index') }}">Retour à la Liste</a>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ product.id }}</td>
+			</tr>
+			<tr>
+				<th>Nom</th>
+				<td>{{ product.name }}</td>
+			</tr>
+			<tr>
+				<th>Prix</th>
+				<td>{{ product.price }}
+					€</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ product.description }}</td>
+			</tr>
+			<tr>
+				<th>Auteur</th>
+				<td>{{ product.author }}</td>
+			</tr>
+			<tr>
+				<th>Support</th>
+				<td>{{ product.support }}</td>
+			</tr>
+		</tbody>
+	</table>
+	{{ include('product_crud/_delete_form.html.twig') }}
+	<a class="btn btn-success" class="btn btn-success" href="{{ path('app_product_crud_index') }}">Retour à la Liste</a>
 {% endblock %}
+

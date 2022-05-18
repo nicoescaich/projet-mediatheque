@@ -1,16 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Product{% endblock %}
+{% block title %}Edit Product
+{% endblock %}
 
 {% block body %}
 
 
-    <div class="text-center">
-          <h1 class="h3 mb-3 font-weight-normal">Modifier Produit {{product.name}}</h1>
-    </div>
+	<div class="text-center">
+		<h1 class="h3 mb-3 font-weight-normal">Modifier Produit
+			{{product.name}}</h1>
+	</div>
 
-    {{ include('product_crud/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+	{{ include('product_crud/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a class="btn btn-success" href="{{ path('app_product_crud_index') }}">Retour à la Liste</a>
+	<a class="btn btn-success" href="{{ path('app_product_crud_index') }}">Retour à la Liste</a>
 
 {% endblock %}
+

@@ -43,19 +43,15 @@ class Loan
     private $delay;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Employee::class, inversedBy="loans")
-     */
-    private $employee;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Reader::class, inversedBy="loans")
-     */
-    private $reader;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="loan", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="loan", cascade={"persist"})
      */
     private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="loans")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -121,31 +117,7 @@ class Loan
 
         return $this;
     }
-
-    public function getEmployee(): ?Employee
-    {
-        return $this->employee;
-    }
-
-    public function setEmployee(?Employee $employee): self
-    {
-        $this->employee = $employee;
-
-        return $this;
-    }
-
-    public function getReader(): ?Reader
-    {
-        return $this->reader;
-    }
-
-    public function setReader(?Reader $reader): self
-    {
-        $this->reader = $reader;
-
-        return $this;
-    }
-
+    
     public function getProduct(): ?Product
     {
         return $this->product;
@@ -161,6 +133,18 @@ class Loan
     public function __toString():string
     {
         return (string)$this->getId();
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
 }

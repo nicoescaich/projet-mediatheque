@@ -4,15 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Entity\Loan;
-
+use App\Entity\Purchase;
 use App\Form\ProductType;
 use App\Repository\LoanRepository;
 use App\Repository\ProductRepository;
+use App\Repository\PurchaseRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Doctrine\ORM\EntityManagerInterface;
 
 
@@ -67,14 +68,26 @@ class ProductCrudController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_product_crud_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
+    public function edit(Request $request, Product $product, ProductRepository $productRepository, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $productRepository->add($product);
-            $this->addFlash('success', 'Produit modifié avec succès');
+            $loan =  $product->getLoan();
+            $purchase =  $product->getPurchase();
+
+            if ($loan != null) {
+                $entityManager->remove($loan);
+                $entityManager->flush();
+            }
+            if ($purchase != null) {
+                $entityManager->remove($purchase);
+                $entityManager->flush();
+            }
+
+           $this->addFlash('success', 'Produit modifié avec succès');
 
             return $this->redirectToRoute('app_product_crud_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -109,7 +122,6 @@ class ProductCrudController extends AbstractController
         $entityManager->persist($product);
         $date = new \Datetime();
         $loan = $entityManager->getRepository(Loan::class)->findOneBy(['product' => $product]);
-        // dd($loan);
         $loan->setRealEndDate($date);
         $entityManager->persist($loan);
         $entityManager->flush();

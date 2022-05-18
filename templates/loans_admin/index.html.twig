@@ -1,62 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}Product index
+{% endblock %}
 
 {% block body %}
-    <h1 class = "text-center">Located Products</h1>
+	<h1 class="text-center">Located Products</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Location Date</th>
-                <th>End Location Date</th>
-                <th>Real End Location Date</th>
-                <th>Name</th>
-                <th>Return</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for loan in loans %}
-          {% if loan.endDate < day_date and not loan.realEndDate %}
-            <tr class="alert alert-danger" role="alert">
-                <td>{{ loan.product.name}}</td>
-                <td>{{ loan.start_date_string}}</td>
-                <td>{{ loan.end_date_string}}</td>
-                <td>{{ loan.real_end_date_string }}</td>
-                <td>{{ loan.reader.user.firstName }} {{ loan.reader.user.lastName }}</td>
-                <td><a class = 'btn btn-success' href="{{ path('app_back_in_stock', {'id': loan.product.id}) }}"><i class="fa-solid fa-arrow-rotate-left"></i></a></td>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Location Date</th>
+				<th>End Location Date</th>
+				<th>Real End Location Date</th>
+				<th>Name</th>
+				<th>Return</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for loan in loans %}
+				{% if loan.endDate < day_date and not loan.realEndDate %}
+					<tr class="alert alert-danger" role="alert">
+						<td>{{ loan.product.name}}</td>
+						<td>{{ loan.start_date_string}}</td>
+						<td>{{ loan.end_date_string}}</td>
+						<td>{{ loan.real_end_date_string }}</td>
+						<td>{{ loan.reader.user.firstName }}
+							{{ loan.reader.user.lastName }}</td>
+						<td>
+							<a class='btn btn-success' href="{{ path('app_back_in_stock', {'id': loan.product.id}) }}">
+								<i class="fa-solid fa-arrow-rotate-left"></i>
+							</a>
+						</td>
 
-            </tr>
-        {% elseif loan.endDate > day_date and not loan.realEndDate %}
-                <tr class="alert alert-success" role="alert">
-                <td>{{ loan.product.name}}</td>
-                <td>{{ loan.start_date_string}}</td>
-                <td>{{ loan.end_date_string}}</td>
-                <td>{{ loan.real_end_date_string }}</td>
-                <td>{{ loan.reader.user.firstName }} {{ loan.reader.user.lastName }}</td>
-                <td><a class = 'btn btn-success' href="{{ path('app_back_in_stock', {'id': loan.product.id}) }}"><i class="fa-solid fa-arrow-rotate-left"></i></a></td>
+					</tr>
+				{% elseif loan.endDate > day_date and not loan.realEndDate %}
+					<tr class="alert alert-success" role="alert">
+						<td>{{ loan.product.name}}</td>
+						<td>{{ loan.start_date_string}}</td>
+						<td>{{ loan.end_date_string}}</td>
+						<td>{{ loan.real_end_date_string }}</td>
+						<td>{{ loan.reader.user.firstName }}
+							{{ loan.reader.user.lastName }}</td>
+						<td>
+							<a class='btn btn-success' href="{{ path('app_back_in_stock', {'id': loan.product.id}) }}">
+								<i class="fa-solid fa-arrow-rotate-left"></i>
+							</a>
+						</td>
 
-            </tr>
-            {% else %}
-              <tr class="" role="alert">
-                <td>{{ loan.product.name}}</td>
-                <td>{{ loan.start_date_string}}</td>
-                <td>{{ loan.end_date_string}}</td>
-                <td>{{ loan.real_end_date_string }}</td>
-                <td>{{ loan.reader.user.firstName }} {{ loan.reader.user.lastName }}</td>
-            </tr>
-            {% endif %}
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a class = 'btn btn-success' href="{{ path('app_loans') }}">Show Loan List</a>
-    <a class = 'btn btn-success' href="{{ path('app_product_crud_index') }}">Show Products List</a>
-
-
+					</tr>
+				{% else %}
+					<tr class="" role="alert">
+						<td>{{ loan.product.name}}</td>
+						<td>{{ loan.start_date_string}}</td>
+						<td>{{ loan.end_date_string}}</td>
+						<td>{{ loan.real_end_date_string }}</td>
+						<td>{{ loan.reader.user.firstName }}
+							{{ loan.reader.user.lastName }}</td>
+					</tr>
+				{% endif %}
+			{% else %}
+				<tr>
+					<td colspan="6">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a class='btn btn-success' href="{{ path('app_loans') }}">Show Loan List</a>
+	<a class='btn btn-success' href="{{ path('app_product_crud_index') }}">Show Products List</a>
 {% endblock %}
+

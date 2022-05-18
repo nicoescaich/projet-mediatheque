@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\Loan;
-use App\Entity\Reader;
 use App\Entity\Purchase;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +29,7 @@ class HomeController extends AbstractController
         $loans = $productRepository->findBy(['status' => 'loan']);
          foreach($loans as $data){
            $loan = $this->em->getRepository(Loan::class)->findOneBy(['product' => $data]);
-            $data->end_date = $loan->getEndDate()->format('d-m-Y');
+           $data->end_date = $loan->getEndDate()->format('d-m-Y');
         }
 
         $onStock = $productRepository->findBy(['status' => 'on-stock']);
@@ -67,7 +66,6 @@ class HomeController extends AbstractController
      */
     public function loan(Product $product, EntityManagerInterface $entityManager): Response
      {
-        $reader = $this->em->getRepository(Reader::class)->findOneBy(['user'=>$this->getUser()]);
         $product->setStatus('loan');
         $entityManager->persist($product);
 
@@ -75,7 +73,7 @@ class HomeController extends AbstractController
         $loan->setProduct($product);
         $loan->setStartDate(new \DateTimeImmutable());
         $loan->setEndDate(new \DateTimeImmutable('+3 weeks'));
-        $loan->setReader($reader);
+        $loan->setUser($this->getUser());
 
         $entityManager->persist($loan);
         $entityManager->flush();
@@ -89,12 +87,11 @@ class HomeController extends AbstractController
      */
     public function buy(Product $product, EntityManagerInterface $entityManager): Response
     {
-        $reader = $this->em->getRepository(Reader::class)->findOneBy(['user'=>$this->getUser()]);
         $buy = new Purchase;
         $buy->setProduct($product);
         $buy->setPurchaseDate(new \DateTimeImmutable());
         $buy->setTotal($product->getPrice());
-        $buy->setReader($reader);
+        $buy->setUser($this->getUser());
         $entityManager->persist($buy);
 
         $product->setStatus('buy');
